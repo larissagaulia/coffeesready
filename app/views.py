@@ -23,6 +23,10 @@ def addToDatabase(status):
   coffee_status.insert({'status': status})
   return 'Coffee status added'
 
+@app.route('/get-status')
+def getStatus():
+  cursor = mongo.db.coffee_status.find().sort([('_id',-1)]).limit(1).next()
+  return str(cursor['status'])
 
 @app.errorhandler(404)
 def not_found(error):
